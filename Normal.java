@@ -8,31 +8,35 @@ public class Normal {
 		
 		linkedList1 ll = new linkedList1();
 		
+		System.out.println("Count of nodes is :" +ll.getCount(ll));
 		ll.insert(ll,10);
-		ll.insert(ll, 20);
-		ll.insert(ll, 50);
-		ll.insert(ll, 40);
+		ll.insert(ll,20);
+		ll.insert(ll,50);
+		ll.insert(ll,40);
 		
+		ll.insertAtPos(ll, 60, 4);
+		ll.print(ll);
+		//System.out.println("Count of nodes is :" +ll.getCount(ll));
 		
-
+		//ll.deleteNode(4, ll);
+		ll.deleteNode(5, ll);
 		ll.print(ll);
-		ll.insertAtPos(ll, 60, 0);
-		ll.print(ll);
+		System.out.println("Count of nodes is :" +ll.getCount(ll));
 	}
 
 }
 
 
-class linkedList1{ //created a class named linked List
+class linkedList1{ 
 	
-	Node head; //defined Node as a head
+	Node head; 
 	
-	 class Node{ //defined a new class as a Node inside class linkedList
+	 class Node{ 
 		
-		int data; //data 
-		Node next; // next is the pointer which will point to the next node of the linked List
+		int data;  
+		Node next;
 		
-		Node(int data){ // constructor is created with one argument which take an input as an integer which is data
+		Node(int data){ 
 			
 			this.data = data;
 			this.next = null;
@@ -40,46 +44,96 @@ class linkedList1{ //created a class named linked List
 		}
 	}
 	
-	public  linkedList1 insert(linkedList1 list, int data) { // created a method with list and data as an argument 
+	public  linkedList1 insert(linkedList1 list, int data) { 
 		
-		Node new_node = new Node(data); // created a new_node with providing input as an data
+		Node new_node = new Node(data); 
 		new_node.next = null; 
 		
-		if(list.head == null) { // if the linked list is empty 
-			list.head = new_node; // put the new node in the head 
+		if(list.head == null) { 
+			list.head = new_node; 
 		}else {
-			Node last = list.head; // placing last --> pointing to list head
-			while(last.next != null) { // traverse last till the last node --> empty
+			Node last = list.head; 
+			while(last.next != null) { 
 				last = last.next; 
 			}
 			
-			last.next = new_node;//put the new node at the last of the last.next
+			last.next = new_node;
 		}
 		
-		return list; //return the list
+		return list; 
 	}
 	
 	
+	public int getCount(linkedList1 list) {
+		Node temp = list.head;
+		int count =0;
+		
+		while(temp != null) {
+			count++;
+			temp=temp.next;
+		}
+		return count;
+		
+	}
+	
 	public linkedList1 insertAtPos(linkedList1 list, int data, int pos) {
 		
-		Node new_node = new Node(data);
-				
-		if(pos==0) {
+		Node temp = list.head;
+		int count = 0;
+		
+		if(pos == 0) {
+			Node new_node = new Node(data);
+			new_node.next = list.head;
 			list.head = new_node;
 			
 			return list;
 		}
 		
-		int counter=0;
-		while(list.head != null) {
-			if(counter == pos) {
-				list.head=new_node;
+		if(pos>getCount(list)) {
+			
+			System.out.println("Please enter lower position");
+		}
+		
+		while(count<pos-1) {
+			 temp = temp.next;
+			 count++;
+		}
+		
+		Node new_node = new Node(data);
+		new_node.next = temp.next;
+		temp.next = new_node;
+		
+		return list;
+	}
+	
+	
+	public linkedList1 deleteNode(int index , linkedList1 list) {
+		
+		Node curr_node = list.head, prev =null;
+		
+		if(index == 0 && curr_node != null) {
+			list.head = curr_node.next;
+			System.out.println( index + " position element deleted ");
+			
+			return list;
+		}
+		int counter = 0;
+		while(curr_node != null) {
+			if(counter == index) {
+				prev.next = curr_node.next;
+				System.out.println(index + "Position element deleted");
 				break;
 			}else {
-				Node temp = list.head;
-				temp= temp.next;
+				prev = curr_node;
+				curr_node = curr_node.next;
 				counter++;
 			}
+		}
+		
+		if(curr_node == null) {
+			
+			System.out.println(index + " Positioned is not there in the list");
+			
 		}
 		
 		
