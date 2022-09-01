@@ -11,6 +11,8 @@ public class BinaryTree {
 		Node1 root = null;
 		Node1 n = new Node1();
 		n.buildTree(root);
+		//input tree ---> 1 3 7 -1 -1 11 -1 -1 5 17 -1 -1 -1
+		n.LevelOrderTraversal(root);
 
 	}
 
@@ -32,21 +34,22 @@ class Node1{
 		this.right = null;
 	}
 	
-	//Level order Traversal 
 	void LevelOrderTraversal(Node1 root) {
-		Queue<Node1> q = new LinkedList<>();
-		q.add(root);
+		Queue<Node1> q = new LinkedList<Node1>();
+		
+		System.out.println(" "+root); //------>> prints null.
 		
 		while(!q.isEmpty()) {
 			Node1 temp = q.peek();
+			System.out.println(" "+ temp); //-------->>prints null
 			System.out.print(""+temp.data);
 			q.poll();
 			
-			if(temp.left) {
+			if(temp.left != null) {
 				q.add(temp.left);
 				
 			}
-			if(temp.right) {
+			if(temp.right!=null) {
 				q.add(temp.right);
 			}
 		}
